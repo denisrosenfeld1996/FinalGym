@@ -1,189 +1,199 @@
 ﻿@model GymFinal.Models.Lesson
+@using Microsoft.AspNetCore.Identity
+@using GymFinal.Areas.Identity.Data
+@inject SignInManager<GymFinalUser> SignInManager
+@inject UserManager<GymFinalUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+@if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
+{
+    <h1>Details</h1>
 
-<div>
-    <h4>Lesson</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Capacity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Capacity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LessonDay)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LessonDay)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LessonTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LessonTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Trainer)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Trainer.TrainersID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StudioClass)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StudioClass.ID)
-        </dd>
-        <!--Join-->
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Members)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Members.MembersID)
-        </dd>
-        <!--Join-->
-        @*<dt class="col-sm-2">
+    <div>
+        <h4>Lesson</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Capacity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Capacity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LessonDay)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LessonDay)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LessonTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LessonTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Trainer)
+            </dt>
+            @if (UserManager.GetUserAsync(User).Result.Role == "Admin")
+            {
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Trainer.TrainersID)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.StudioClass)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.StudioClass.ID)
+                </dd>
+                <!--Join-->
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Members)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Members.MembersID)
+                </dd>
+            }
+                <!--Join-->
+                @*<dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Members)
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Members.MembersID)
             </dd>*@
-        <!--Join-->
-    </dl>
-</div>
-<!--<!--Join-->
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StudioClass.ClassName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StudioClass.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Trainer.TrainerName)
-            </th>
-            <th></th>
+                <!--Join-->
+            </dl>
+    </div>
+    <!--<!--Join-->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudioClass.ClassName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudioClass.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Trainer.TrainerName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*foreach (var modelItem in Model)*@
+            @*{*@
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.StudioClass.ClassName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.StudioClass.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Trainer.TrainerName)
+                </td>
+            </tr>
+            @*}*@
+        </tbody>
+    </table>
+    <!--<table class="table">
+        <thead>
+            <tr>-->
+    @*<th>
+            @Html.DisplayNameFor(model => model.Members.MemberName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members.PhoneNumber)
+        </th>*@
+    <!--<th></th>
         </tr>
     </thead>
-    <tbody>
-        @*foreach (var modelItem in Model)*@
-        @*{*@
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => modelItem.StudioClass.ClassName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => modelItem.StudioClass.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => modelItem.Trainer.TrainerName)
-            </td>
-        </tr>
-        @*}*@
-    </tbody>
-</table>
-<!--<table class="table">
-    <thead>
-        <tr>-->
-@*<th>
-        @Html.DisplayNameFor(model => model.Members.MemberName)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.Members.PhoneNumber)
-    </th>*@
-<!--<th></th>
-    </tr>
-</thead>
-<tbody>-->
-@*@foreach (var item in Model)*@
-@*{*@
-<!--<tr>-->
-@*<td>
-        @Html.DisplayFor(modelItem => modelItem.Members.MemberName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => modelItem.Members.PhoneNumber)
-    </td>*@
-<!--</tr>-->
-@*}*@
-<!--</tbody>
-</table>-->
-@*@foreach (var item in Model)
-    {
-        <div>@item.StudioClass.ClassName</div>
-        <div>@item.StudioClass.Type</div>
-        <div>@item.Trainer.TrainerName</div>
-    }*@
-<!--Join-->
-<!--<!--Join-->
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Members.MemberName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Members.MembersID)
-            </th>
-            <th></th>
+    <tbody>-->
+    @*@foreach (var item in Model)*@
+    @*{*@
+    <!--<tr>-->
+    @*<td>
+            @Html.DisplayFor(modelItem => modelItem.Members.MemberName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Members.PhoneNumber)
+        </td>*@
+    <!--</tr>-->
+    @*}*@
+    <!--</tbody>
+    </table>-->
+    @*@foreach (var item in Model)
+        {
+            <div>@item.StudioClass.ClassName</div>
+            <div>@item.StudioClass.Type</div>
+            <div>@item.Trainer.TrainerName</div>
+        }*@
+    <!--Join-->
+    <!--<!--Join-->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members.MemberName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members.MembersID)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*foreach (var modelItem in Model)*@
+            @*{*@
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Members.MemberName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Members.MembersID)
+                </td>
+            </tr>
+            @*}*@
+        </tbody>
+    </table>
+    <!--<table class="table">
+        <thead>
+            <tr>-->
+    @*<th>
+            @Html.DisplayNameFor(model => model.Members.MemberName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members.PhoneNumber)
+        </th>*@
+    <!--<th></th>
         </tr>
     </thead>
-    <tbody>
-        @*foreach (var modelItem in Model)*@
-        @*{*@
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => modelItem.Members.MemberName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => modelItem.Members.MembersID)
-            </td>
-        </tr>
-        @*}*@
-    </tbody>
-</table>
-<!--<table class="table">
-    <thead>
-        <tr>-->
-@*<th>
-        @Html.DisplayNameFor(model => model.Members.MemberName)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.Members.PhoneNumber)
-    </th>*@
-<!--<th></th>
-    </tr>
-</thead>
-<tbody>-->
-@*@foreach (var item in Model)*@
-@*{*@
-<!--<tr>-->
-@*<td>
-        @Html.DisplayFor(modelItem => modelItem.Members.MemberName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => modelItem.Members.PhoneNumber)
-    </td>*@
-<!--</tr>-->
-@*}*@
-<!--</tbody>
-</table>-->
-@*@foreach (var item in Model)
-    {
-        <div>@item.StudioClass.ClassName</div>
-        <div>@item.StudioClass.Type</div>
-        <div>@item.Trainer.TrainerName</div>
-    }*@
-<!--Join-->
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.LessonID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <tbody>-->
+    @*@foreach (var item in Model)*@
+    @*{*@
+    <!--<tr>-->
+    @*<td>
+            @Html.DisplayFor(modelItem => modelItem.Members.MemberName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Members.PhoneNumber)
+        </td>*@
+    <!--</tr>-->
+    @*}*@
+    <!--</tbody>
+    </table>-->
+    @*@foreach (var item in Model)
+        {
+            <div>@item.StudioClass.ClassName</div>
+            <div>@item.StudioClass.Type</div>
+            <div>@item.Trainer.TrainerName</div>
+        }*@
+    <!--Join-->
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.LessonID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+}

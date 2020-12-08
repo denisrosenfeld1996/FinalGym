@@ -1,58 +1,69 @@
 ﻿@model GymFinal.Models.StudioClass
+@using Microsoft.AspNetCore.Identity
+@using GymFinal.Areas.Identity.Data
+@inject SignInManager<GymFinalUser> SignInManager
+@inject UserManager<GymFinalUser> UserManager
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+@if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
+{
 
-<h4>StudioClass</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="ClassName" class="control-label"></label>
-                <input asp-for="ClassName" class="form-control" />
-                <span asp-validation-for="ClassName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DuringTime" class="control-label"></label>
-                <input asp-for="DuringTime" class="form-control" />
-                <span asp-validation-for="DuringTime" class="text-danger"></span>
-            </div>
-            <!--Odeya&maya -->
-            <div class="form-group">
-                <label asp-for="BurnCalories" class="control-label"></label>
-                <input asp-for="BurnCalories" class="form-control" />
-                <span asp-validation-for="BurnCalories" class="text-danger"></span>
-            </div>
-            <!--Odeya&maya -->
-            <!--GroupBy-->
-            <div class="form-group">
-                <label asp-for="TypeID" class="control-label"></label>
-                <input asp-for="TypeID" class="form-control" />
-                <span asp-validation-for="TypeID" class="text-danger"></span>
-            </div>
-            <!--GroupBy -->
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    if (UserManager.GetUserAsync(User).Result.Role == "Admin")
+    {
+        <h1>Edit</h1>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        <h4>StudioClass</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ID" />
+                    <div class="form-group">
+                        <label asp-for="ClassName" class="control-label"></label>
+                        <input asp-for="ClassName" class="form-control" />
+                        <span asp-validation-for="ClassName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type" class="control-label"></label>
+                        <input asp-for="Type" class="form-control" />
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DuringTime" class="control-label"></label>
+                        <input asp-for="DuringTime" class="form-control" />
+                        <span asp-validation-for="DuringTime" class="text-danger"></span>
+                    </div>
+                    <!--Odeya&maya -->
+                    <div class="form-group">
+                        <label asp-for="BurnCalories" class="control-label"></label>
+                        <input asp-for="BurnCalories" class="form-control" />
+                        <span asp-validation-for="BurnCalories" class="text-danger"></span>
+                    </div>
+                    <!--Odeya&maya -->
+                    <!--GroupBy-->
+                    <div class="form-group">
+                        <label asp-for="TypeID" class="control-label"></label>
+                        <input asp-for="TypeID" class="form-control" />
+                        <span asp-validation-for="TypeID" class="text-danger"></span>
+                    </div>
+                    <!--GroupBy -->
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    }
 }
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

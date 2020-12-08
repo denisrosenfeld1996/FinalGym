@@ -1,202 +1,206 @@
 ﻿@model GymFinal.Models.StudioClass
+@using Microsoft.AspNetCore.Identity
+@using GymFinal.Areas.Identity.Data
+@inject SignInManager<GymFinalUser> SignInManager
+@inject UserManager<GymFinalUser> UserManager
 
 @{
     ViewData["Title"] = "BMI";
 }
-<!--
-<h1>BMI</h1>-->
-@* denis *@
-<!--<style>
-    body, html {
-        color: black;
-        display: block;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    form {
-        background-color: grey;
-        display: inline-block;
-        box-sizing: border-box;
-        box-shadow: 2px 2px 20px 5px black;
-        margin: 0;
-        padding: 10px;
-        width: 100%;
-        max-width: 400px;
-    }
-
-    input {
-        box-shadow: 1px 1px 3px 1px black;
-        width: 100%;
-        text-align: center;
-    }
-
-    .submit {
-        display: inline-block;
-        color: white;
-        background-color: blue;
-        margin: 0;
-        padding: 5px;
-        border: 0;
-        font-weight: bold;
-        width: 100%;
-    }
-
-        .submit:hover {
-            color: blue;
-            background-color: white;
-            font-size: 0.7em;
-            font-weight: bold;
+@if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
+{
+    
+    <!--
+    <h1>BMI</h1>-->
+    @* denis *@
+    <!--<style>
+        body, html {
+            color: black;
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
-    #result {
-        border: 1px solid black;
-        padding: 2px;
-        color: white;
-        width: 100%;
-        text-align: center;
-    }
-
-    h4 {
-        color: black;
-        text-shadow: -2px -2px 5px white;
-    }
-</style>
-<script>function bmi() {
-        var height = Number(document.getElementById("height").value);
-        var weight = Number(document.getElementById("weight").value);
-        var result = weight / (height * height);
-        document.getElementById("result").innerHTML = "Your bmi score is : " + result;
-    }</script>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-</head>
-<body>
-    <form>
-        <h4>BMI Calculator</h4>
-        <input id="weight" type="text" placeholder="Your weight in kilograms" />
-        <br />
-        <br />
-        <input id="height" type="text" placeholder="Your height in meters" />
-        <br />
-        <br />
-
-        <input class="submit" type="button" value="Submit" onclick="bmi()" />
-        <p id="result">Here will be your result</p>
-    </form>
-</body>
-</html>-->
-
-
-
-
-
-@* denis *@
-<style>
-    body, html {
-        color: black;
-        display: block;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-   /* imgBMI {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-    }*/
-    form {
-        background-color: grey;
-        display: inline-block;
-        box-sizing: border-box;
-        box-shadow: 2px 2px 20px 5px black;
-        margin: 0;
-        padding: 10px;
-        width: 100%;
-        max-width: 400px;
-    }
-
-    input {
-        box-shadow: 1px 1px 3px 1px black;
-        width: 100%;
-        text-align: center;
-    }
-
-    .submit {
-        display: inline-block;
-        color: white;
-        background-color: lightgray;
-        margin: 0;
-        padding: 5px;
-        border: 0;
-        font-weight: bold;
-        width: 100%;
-    }
-
-        .submit:hover {
-            color: slategrey;
-            background-color: white;
-            font-size: 0.7em;
-            font-weight: bold;
+        form {
+            background-color: grey;
+            display: inline-block;
+            box-sizing: border-box;
+            box-shadow: 2px 2px 20px 5px black;
+            margin: 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
         }
 
-    #result {
-        border: 1px solid black;
-        padding: 2px;
-        color: white;
-        width: 100%;
-        text-align: center;
-    }
+        input {
+            box-shadow: 1px 1px 3px 1px black;
+            width: 100%;
+            text-align: center;
+        }
 
-    h4 {
-        color: black;
-        text-shadow: -2px -2px 5px white;
-    }
-</style>
-<script>
-    function bmi() {
-        var height = Number(document.getElementById("height").value);
-        var weight = Number(document.getElementById("weight").value);
-        var result = weight / (height * height);
-        document.getElementById("result").innerHTML = "Your bmi score is : " + result;
-    }</script>
-<!DOCTYPE html>
-<html>
-<head>
-    @*<title>Page Title</title>*@
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-</head>
-<body>
-    <form>
-        <h4>BMI Calculator</h4>
-        @*<input id="weight" type="text" placeholder="Your weight in kilograms" />*@
-        <input type="text" placeholder="Your weight in kilograms" @*name="price"*@ id="weight" class="calculator-input" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 ) || event.charCode==46">@*</div>*@
+        .submit {
+            display: inline-block;
+            color: white;
+            background-color: blue;
+            margin: 0;
+            padding: 5px;
+            border: 0;
+            font-weight: bold;
+            width: 100%;
+        }
 
-        <br />
-        <br />
-        @*<input id="height" type="text" placeholder="Your height in meters" />*@
-        <input type="text" placeholder="Your height in meters" @*name="price"*@ id="height" class="calculator-input" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 ) || event.charCode==46">@*</div>*@
+            .submit:hover {
+                color: blue;
+                background-color: white;
+                font-size: 0.7em;
+                font-weight: bold;
+            }
 
-        <br />
-        <br />
+        #result {
+            border: 1px solid black;
+            padding: 2px;
+            color: white;
+            width: 100%;
+            text-align: center;
+        }
 
-        <input class="submit" type="button" value="Submit" onclick="bmi()" />
-        <p id="result">Here will be your result</p>
-    </form>
-    <br /><br />
-    <h1>
-        BMI Categories
-    </h1>
-    <img src=~/images/bmiCategories.jpeg   display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;@*alt="bmi"*@ style="width:50%">
+        h4 {
+            color: black;
+            text-shadow: -2px -2px 5px white;
+        }
+    </style>
+    <script>function bmi() {
+            var height = Number(document.getElementById("height").value);
+            var weight = Number(document.getElementById("weight").value);
+            var result = weight / (height * height);
+            document.getElementById("result").innerHTML = "Your bmi score is : " + result;
+        }</script>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
+    <body>
+        <form>
+            <h4>BMI Calculator</h4>
+            <input id="weight" type="text" placeholder="Your weight in kilograms" />
+            <br />
+            <br />
+            <input id="height" type="text" placeholder="Your height in meters" />
+            <br />
+            <br />
 
-</body>
+            <input class="submit" type="button" value="Submit" onclick="bmi()" />
+            <p id="result">Here will be your result</p>
+        </form>
+    </body>
+    </html>-->
+    @* denis *@
+    <style>
+            body, html {
+                color: black;
+                display: block;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            /* imgBMI {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }*/
+            form {
+                background-color: grey;
+                display: inline-block;
+                box-sizing: border-box;
+                box-shadow: 2px 2px 20px 5px black;
+                margin: 0;
+                padding: 10px;
+                width: 100%;
+                max-width: 400px;
+            }
+
+            input {
+                box-shadow: 1px 1px 3px 1px black;
+                width: 100%;
+                text-align: center;
+            }
+
+            .submit {
+                display: inline-block;
+                color: white;
+                background-color: lightgray;
+                margin: 0;
+                padding: 5px;
+                border: 0;
+                font-weight: bold;
+                width: 100%;
+            }
+
+                .submit:hover {
+                    color: slategrey;
+                    background-color: white;
+                    font-size: 0.7em;
+                    font-weight: bold;
+                }
+
+            #result {
+                border: 1px solid black;
+                padding: 2px;
+                color: white;
+                width: 100%;
+                text-align: center;
+            }
+
+            h4 {
+                color: black;
+                text-shadow: -2px -2px 5px white;
+            }
+    </style>
+    <script>
+        function bmi() {
+            var height = Number(document.getElementById("height").value);
+            var weight = Number(document.getElementById("weight").value);
+            var result = weight / (height * height);
+            document.getElementById("result").innerHTML = "Your bmi score is : " + result;
+        }</script>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        @*<title>Page Title</title>*@
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
+    <body>
+        <form>
+            <h4>BMI Calculator</h4>
+            @*<input id="weight" type="text" placeholder="Your weight in kilograms" />*@
+            <input type="text" placeholder="Your weight in kilograms" @*name="price"*@ id="weight" class="calculator-input" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 ) || event.charCode==46">@*</div>*@
+
+            <br />
+            <br />
+            @*<input id="height" type="text" placeholder="Your height in meters" />*@
+            <input type="text" placeholder="Your height in meters" @*name="price"*@ id="height" class="calculator-input" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 ) || event.charCode==46">@*</div>*@
+
+            <br />
+            <br />
+
+            <input class="submit" type="button" value="Submit" onclick="bmi()" />
+            <p id="result">Here will be your result</p>
+        </form>
+        <br /><br />
+        <h1>
+            BMI Categories
+        </h1>
+        <img src=~/images/bmiCategories.jpeg display: block;
+             margin-left: auto;
+             margin-right: auto;
+             width: 50%;@*alt="bmi" *@ style="width:50%">
+
+    </body>
 </html>
+   
+}
 
