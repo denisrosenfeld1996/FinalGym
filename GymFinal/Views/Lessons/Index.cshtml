@@ -1,0 +1,81 @@
+﻿@model IEnumerable<GymFinal.Models.Lesson>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<!--Odeya&maya-Search -->
+<form asp-action="search">
+    <input name="day" placeholder="Enter lesson day" />
+    <input type="submit" value="search" />
+</form>
+<!--Odeya&maya-Search -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LessonDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LessonTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudioClass)
+            </th>
+            <!--Join-->
+            <th>
+                @Html.DisplayNameFor(model => model.Members)
+            </th>
+            <!--Join-->
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trainer.TrainersID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudioClass.ID)
+                </td>
+                <!--Join-->
+                <td>
+                    @Html.DisplayFor(modelItem => item.Members.MembersID)
+                </td>
+                <!--Join-->
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Members.MembersID)
+                    </td>*@
+                <!--Join-->
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LessonID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LessonID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LessonID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

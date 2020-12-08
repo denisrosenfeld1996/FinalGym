@@ -1,0 +1,84 @@
+﻿@model IEnumerable<GymFinal.Models.Members>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<!--Odeya&maya -->
+<form asp-action="search">
+    <input name="id" placeholder="Enter memebr id" /> or
+    <input name="name" placeholder="Enter member name" />
+    <input type="submit" value="search" />
+</form>
+<!--Odeya&maya -->
+<table class="table">
+    <thead>
+        <tr>
+            <!--Odeya&Maya-->
+            <th>
+                @Html.DisplayNameFor(model => model.MembersID)
+            </th>
+            <!--Odeya&Maya-->
+            <th>
+                @Html.DisplayNameFor(model => model.MemberName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </th>
+            <!--Login-->
+            @*<th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>*@
+            <!--Login-->
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <!--Odeya&Maya-->
+                <td>
+                    @Html.DisplayFor(modelItem => item.MembersID)
+                </td>
+                <!--Odeya&Maya-->
+                <td>
+                    @Html.DisplayFor(modelItem => item.MemberName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <!--Login-->
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>*@
+                <!--Login-->
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MembersID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MembersID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MembersID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

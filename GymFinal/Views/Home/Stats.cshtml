@@ -1,0 +1,100 @@
+﻿@model GymFinal.Models.StatsViewModel
+@{
+    ViewData["Title"] = "Stats";
+}
+
+<h1>Stats</h1>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    @*Pie Chart*@
+
+    <script type="text/javascript">
+    window.onload = function () {
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		title:{
+			text: "Professional Team VS. Diverse Classes"
+		},
+		legend: {
+			maxWidth: 350,
+			itemWidth: 120
+		},
+		data: [
+		{
+			type: "pie",
+			showInLegend: true,
+			legendText: "{indexLabel}",
+			dataPoints: [
+				@*{ y: @Html.DisplayFor(Model=>Model.TrainersCount), indexLabel: "Trainers" },
+				{ y: @Html.DisplayFor(Model=>Model.UsersCount), indexLabel: "Users"}*@
+                { y: @Html.DisplayFor(Model => Model.TrainersCount), indexLabel: "Trainers" },
+            { y: @Html.DisplayFor(Model => Model.ClassesCount), indexLabel: "Classes"}
+			]
+		}
+		]
+        });
+
+
+    var dps = [];   //dataPoints.
+
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                title: {
+                    text: "Calories in workouts"
+                },
+                axisX: {
+                    title: "Class Name"
+                },
+                axisY: {
+                    title: "Calories"
+                },
+                data: [{
+                    type: "column",
+                    showInLegend: true,
+                    //legendText: "{indexLabel}",
+                    dataPoints: dps
+                }]
+            });
+
+            var dps = new Array();
+
+            function parseDataPoints() {
+
+                   @foreach (var item in Model.Classes)
+                   {
+
+                    @:dps.push({ y:@Html.DisplayFor(modelitem => item.BurnCalories), label: "@Html.DisplayFor(modelitem => item.ClassName)" })
+                }
+
+                //for (var i = 0; i <= 10; i++)
+                //{
+                // dps.push({ y: 10});
+                //}
+
+
+                @*for (var i = 0; i <= @Model.Registerations.Count(); i++)
+                    dps.push({ y: dataArray[i] });*@
+            };
+
+            parseDataPoints();
+    chart2.options.data[0].dataPoints = dps;
+    chart.render();
+    chart2.render();
+}
+    </script>
+    @*end of column chart*@
+
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+    @*Pie Chart*@
+
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+    @*end of pie chart*@
+    <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+
+</body>
+</html>
+<!--Graph-->
