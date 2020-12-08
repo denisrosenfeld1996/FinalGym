@@ -63,6 +63,14 @@ namespace GymFinal.Controllers
             //Odeya&maya-GroupBy
             return View(await _context.StudioClass.ToListAsync());
         }
+        public async Task<IActionResult> AboutUs()
+        {
+            return View();
+        }
+        public async Task<IActionResult> BMI()
+        {
+            return View();
+        }
         //Odeya&maya-Search
         public async Task<IActionResult> Search(string name, int calories, string type)
         {

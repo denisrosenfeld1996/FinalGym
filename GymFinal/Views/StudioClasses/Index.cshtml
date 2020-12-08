@@ -3,8 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
+<h1>Studio classes</h1>
+<div class="sidenav">
+    <a href="https://www.youtube.com/watch?v=utsUU0dC2fU">TRX</a>
+    <a href="https://www.youtube.com/watch?v=bm4WZyH5p2I">Zumba</a>
+    <a href="https://www.youtube.com/watch?v=oKCzJjszSVU">Pilaties</a>
+    <a href="https://www.youtube.com/watch?v=b6IFkfSj4Jo">Yoga</a>
+</div>
 
-<h1>Index</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -74,4 +80,40 @@
     </tbody>
 </table>
 
+
+<style>
+    body {
+        font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 70px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 10px;
+            color: #818181;
+            display: block;
+        }
+
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+
+    .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+    }
+</style>
 
