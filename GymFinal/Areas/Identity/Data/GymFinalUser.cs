@@ -17,5 +17,9 @@ namespace GymFinal.Areas.Identity.Data
         public string Address { get; set; }
         public string UserId { get; set; }
         public string Role { get; set; }
+
+        ////denis
+        //public Dictionary<string, int> mapOfClass { get; set; }
+        //public string bestClasses { get; set; }
     }
 }

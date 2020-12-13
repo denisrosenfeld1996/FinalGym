@@ -10,7 +10,7 @@
 
 @if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
 {
-    <h1>Index</h1>
+    <h1>Team</h1>
     @if (UserManager.GetUserAsync(User).Result.Role == "Admin")
     {
         <p>

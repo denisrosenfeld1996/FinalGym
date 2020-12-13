@@ -12,12 +12,16 @@ using Facebook;
 using System.Dynamic;
 using SQLitePCL;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace GymFinal.Controllers
 {
     public class StudioClassesController : Controller
     {
         private readonly GymFinalContext _context;
+
+        public object Values { get; private set; }
 
         public StudioClassesController(GymFinalContext context)
         {
@@ -71,6 +75,11 @@ namespace GymFinal.Controllers
         {
             return View();
         }
+        //denis added
+        public async Task<IActionResult> Info()
+        {
+            return View();
+        }
         //Odeya&maya-Search
         public async Task<IActionResult> Search(string name, int calories, string type)
         {
@@ -107,6 +116,29 @@ namespace GymFinal.Controllers
         // GET: StudioClasses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var temp = _context.StudioClass.Find(id);
+            if (Best.mapOfClass == null)
+            {
+                Best.mapOfClass = new Dictionary<string, int>();
+                Best.mapOfClass.Add(temp.Type, 1);
+
+
+            }
+            else
+            {
+                if (Best.mapOfClass.ContainsKey(temp.Type))
+                {
+
+                    Best.mapOfClass[temp.Type]++;
+                }
+                else
+                {
+                    Best.mapOfClass.Add(temp.Type, 1);
+                }
+            }
+
+            Best.bestclass = Best.mapOfClass.FirstOrDefault(x => x.Value == Best.mapOfClass.Values.Max()).Key;
+            
             if (id == null)
             {
                 return NotFound();
@@ -250,6 +282,42 @@ namespace GymFinal.Controllers
             return View(studioClass);
         }
 
+        public ActionResult groupBy()
+        {
+            var TypesCount = _context.StudioClass
+                .GroupBy(p => p.Type)
+                .Select(g => new
+                {
+                    Type = g.Key,
+                    Count = g.Count()
+                }).ToList();
+            int types = TypesCount.Count();
+
+
+            //var classById =
+            //    from u in _context.StudioClass
+            //    group u by u.Type into g
+
+            //    select new { Type = g.Key, count = g.Count(), g.FirstOrDefault().TypeID };
+            //var group = new List<StudioClass>();
+            //foreach (var t in classById)
+            //{
+            //    group.Add(new StudioClass()
+            //    {
+            //        Type = t.Type,
+            //        DuringTime = t.count
+            //    }); 
+            //}
+
+            //ViewBag.airobic = group[0].Type;
+            //ViewBag.sizeAirobic = group[0].DuringTime;
+            //ViewBag.streching = group[1].Type;
+            //ViewBag.sizestreching = group[1].DuringTime;
+            //ViewBag.power = group[2].Type;
+            //ViewBag.sizePower = group[2].DuringTime;
+            return View();
+        }
+
         // POST: StudioClasses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -268,6 +336,7 @@ namespace GymFinal.Controllers
     }
 
 
-
-
 }
+
+
+

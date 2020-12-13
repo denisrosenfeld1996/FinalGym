@@ -6,6 +6,7 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
 @if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
 {
@@ -22,110 +23,115 @@
             <a asp-action="Create">Create New</a>
         </p>
     }
-        <!--Odeya&maya -->
-        <form asp-action="Search">
-            <input name="name" placeholder="Enter class name" /> or
-            <input name="calories" placeholder="Enter burn calories" /> or
-            <input name="type" placeholder="Enter type lesson" />
-            <input type="submit" value="search" />
+    <!--Odeya&maya -->
+    <form asp-action="Search">
+        <input name="name" placeholder="Enter class name" /> or
+        <input name="calories" placeholder="Enter burn calories" /> or
+        <input name="type" placeholder="Enter type lesson" />
+        <input type="submit" value="search" />
+    </form>
+    <!--Odeya&maya -->
+    <!--Odeya&denis -->
+    <form asp-action="groupBy">
+            <input type="submit" value="group" />
         </form>
-        <!--Odeya&maya -->
-        <table class="table">
-            <thead>
+    <!--Odeya&maya -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DuringTime)
+                </th>
+                <!--Odeya&maya -->
+                <th>
+                    @Html.DisplayNameFor(model => model.BurnCalories)
+                </th>
+                <!--Odeya&maya -->
+                <!--GroupBy-->
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeID)
+                </th>
+                <!--GroupBy-->
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ClassName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DuringTime)
-                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DuringTime)
+                    </td>
                     <!--Odeya&maya -->
-                    <th>
-                        @Html.DisplayNameFor(model => model.BurnCalories)
-                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BurnCalories)
+                    </td>
                     <!--Odeya&maya -->
                     <!--GroupBy-->
-                    <th>
-                        @Html.DisplayNameFor(model => model.TypeID)
-                    </th>
-                    <!--GroupBy-->
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeID)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    </td>
+                    @if (UserManager.GetUserAsync(User).Result.Role == "Admin")
+                    {
                         <td>
-                            @Html.DisplayFor(modelItem => item.ClassName)
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DuringTime)
-                        </td>
-                        <!--Odeya&maya -->
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BurnCalories)
-                        </td>
-                        <!--Odeya&maya -->
-                        <!--GroupBy-->
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TypeID)
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                        </td>
-                        @if (UserManager.GetUserAsync(User).Result.Role == "Admin")
-                        {
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                            </td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-
-        <style>
-            body {
-                font-family: "Lato", sans-serif;
-            }
-
-            .sidenav {
-                height: 100%;
-                width: 70px;
-                position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-                background-color: #111;
-                overflow-x: hidden;
-                padding-top: 20px;
-            }
-
-                .sidenav a {
-                    padding: 6px 8px 6px 16px;
-                    text-decoration: none;
-                    font-size: 10px;
-                    color: #818181;
-                    display: block;
-                }
-
-                    .sidenav a:hover {
-                        color: #f1f1f1;
                     }
-
-            .main {
-                margin-left: 160px; /* Same as the width of the sidenav */
-                font-size: 28px; /* Increased text to enable scrolling */
-                padding: 0px 10px;
+                </tr>
             }
-        </style>
-    }
+        </tbody>
+    </table>
+
+
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 70px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+            .sidenav a {
+                padding: 6px 8px 6px 16px;
+                text-decoration: none;
+                font-size: 10px;
+                color: #818181;
+                display: block;
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            font-size: 28px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+    </style>
+}

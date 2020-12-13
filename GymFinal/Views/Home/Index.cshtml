@@ -1,4 +1,8 @@
-﻿@* denis change 1 *@
+﻿@using Microsoft.AspNetCore.Identity
+@using GymFinal.Areas.Identity.Data
+@inject SignInManager<GymFinalUser> SignInManager
+@inject UserManager<GymFinalUser> UserManager
+@* denis change 1 *@
 <!--@{ ViewBag.Title = "Home Page"; }
 <style>
     .form-control:focus {
@@ -146,11 +150,13 @@
         font-family: cursive;
     }
 </style>
+
+
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-lg-8">
             <div class="section-title text-center">
-                <br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br />
                 @*<h2>The real <span>workout</span> starts when you want to stop. </h2>*@
 
                 @*<h1>DO YOUR <span style="background-color: #FFFF00">BEST</span></h1>
@@ -159,7 +165,7 @@
 
 
                 <p class="ex1">DO TOUR <strong>BEST</strong><br>AND<br>FORGET THE <strong>REST</strong></p>
-                <br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br />
             </div>
         </div>
     </div>
@@ -222,7 +228,43 @@
     </div>
 </div>
 
+@* denissss *@
+@if (SignInManager.IsSignedIn(User))
+{
+    //אם אנחנו מחוברים
+    <input type="hidden" id="someName" value="@Best.bestclass" />
+<script>
 
+    window.onload = setTimeout(function start() {
+        var best = $("#someName").val();
+
+        var flag = Swal.fire({
+
+            html:
+                'Hey you! I noticed you like  ' + '' + best + ' ' +
+                'type of lessons, We recommend to read more about it!',
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Great!',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText:
+                '<i class="fa fa-thumbs-down"></i>',
+            cancelButtonAriaLabel: 'Thumbs down'
+
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                window.location = "/StudioClasses/Info";
+            }
+            else {
+                window.location = "/StudioClasses/Index";
+            }
+        });
+    }, 10000);
+
+</script>
+}
 @* denis *@
 <div class="row">
 
@@ -231,11 +273,11 @@
         <br /><br /><br /><br /><br /><br /><br /><br />
 
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="~/images/bmi.jpg" alt="Card image cap">
-            <h2 class="card-title">BMI Calculator</h2>
+            <img class="card-img-top" width=" 200" height="150"; src=~/images/fittip.jpg alt="Card image cap">
+            <h2 class="card-title">Fitness Tips</h2>
             <div class="card-body">
-                <p>BMI Calculator</p>
-                <p><a class="btn btn-primary" style="background-color:#808080 !important ;border-color:white ;border-radius: 20px 20px 20px 20px;" target="_blank" href="https://www.calculator.net/bmi-calculator.html">Learn more &raquo;</a></p>
+                <p>Fitness Tips</p>
+                <p><a class="btn btn-primary" style="background-color:#808080 !important ; border-color:white ;border-radius: 20px 20px 20px 20px;" target="_blank" href="https://www.mensjournal.com/health-fitness/25-expert-fitness-tips-and-strategies-every-lifter-should-know/">Learn more &raquo;</a></p>
 
             </div>
         </div>
@@ -336,15 +378,17 @@
 @* show hide *@
 <div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $("button").click(function () {
                 $("pr").toggle();
             });
         });</script>
 
-
-    <button>Click to get our Fitness Tips!</button><br />
-
+    <br />
+    <br />
+    <button>Click to hide our Fitness Tips!</button><br />
+    <pr>Click to get our Fitness Tips!</pr>
     <pr>1.Exercise Daily</pr><br />
     <pr>2.Eat the Right Foods and Portion Each Meal</pr><br />
     <pr>3.Keep Track of Calories and Food Intake Per Day</pr><br />

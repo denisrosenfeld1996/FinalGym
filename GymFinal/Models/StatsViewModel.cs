@@ -12,7 +12,7 @@ namespace GymFinal.Models
         public int UsersCount { get; set; }
         public int TrainersCount { get; set; }
         public ICollection<StudioClass> Classes { get; set; }
-
+        public int types { get; set; }
         public int ClassesCount { get; set; }
     }
 }

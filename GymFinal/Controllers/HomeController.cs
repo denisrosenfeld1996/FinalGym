@@ -53,6 +53,14 @@ namespace GymFinal.Controllers
         public IActionResult Stats()
         {
             StatsViewModel dash = new StatsViewModel();
+            var TypesCount = _context.StudioClass
+              .GroupBy(p => p.TypeID)
+              .Select(g => new
+              {
+                  TypeID = g.Key,
+                  Count = g.Count()
+              }).ToList();
+            dash.types = TypesCount.Count();
             ///dash.TrainersCount = _context.Trainers.ToList().Count();
             ////dash.UsersCount = _context.Members.Count();
             dash.Classes = _context.StudioClass.ToImmutableList();

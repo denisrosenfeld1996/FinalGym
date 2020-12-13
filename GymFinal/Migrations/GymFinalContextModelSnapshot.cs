@@ -180,6 +180,9 @@ namespace GymFinal.Migrations
                     b.Property<int>("UsersCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("types")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
                     b.ToTable("StatsViewModel");

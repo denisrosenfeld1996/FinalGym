@@ -62,6 +62,7 @@ namespace GymFinal.Controllers
         // GET: Lessons/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+         
             if (id == null)
             {
                 return NotFound();

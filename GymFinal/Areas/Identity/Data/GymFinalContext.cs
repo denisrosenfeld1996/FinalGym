@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using GymFinal.Models;
 
+
 namespace GymFinal.Data
-{
+{   
     public class GymFinalContext : IdentityDbContext<GymFinalUser>
     {
         public GymFinalContext(DbContextOptions<GymFinalContext> options)
@@ -34,5 +35,6 @@ namespace GymFinal.Data
         public DbSet<GymFinal.Models.Members> Members { get; set; }
 
         public DbSet<GymFinal.Models.StatsViewModel> StatsViewModel { get; set; }
+        public object Best { get; internal set; }
     }
 }

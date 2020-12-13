@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymFinal.Migrations
 {
     [DbContext(typeof(GymFinalContext))]
-    [Migration("20201204124112_viewall")]
-    partial class viewall
+    [Migration("20201213135502_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -153,14 +153,8 @@ namespace GymFinal.Migrations
                     b.Property<string>("MemberName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("studioClassID")
                         .HasColumnType("int");
@@ -170,6 +164,30 @@ namespace GymFinal.Migrations
                     b.HasIndex("studioClassID");
 
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("GymFinal.Models.StatsViewModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClassesCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainersCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("types")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("StatsViewModel");
                 });
 
             modelBuilder.Entity("GymFinal.Models.StudioClass", b =>
@@ -188,6 +206,9 @@ namespace GymFinal.Migrations
                     b.Property<int>("DuringTime")
                         .HasColumnType("int");
 
+                    b.Property<int?>("StatsViewModelid")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TrainersID")
                         .HasColumnType("int");
 
@@ -198,6 +219,8 @@ namespace GymFinal.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("StatsViewModelid");
 
                     b.HasIndex("TrainersID");
 
@@ -304,10 +327,12 @@ namespace GymFinal.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -344,10 +369,12 @@ namespace GymFinal.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -385,6 +412,10 @@ namespace GymFinal.Migrations
 
             modelBuilder.Entity("GymFinal.Models.StudioClass", b =>
                 {
+                    b.HasOne("GymFinal.Models.StatsViewModel", null)
+                        .WithMany("Classes")
+                        .HasForeignKey("StatsViewModelid");
+
                     b.HasOne("GymFinal.Models.Trainers", "trainers")
                         .WithMany()
                         .HasForeignKey("TrainersID");

@@ -2,12 +2,24 @@
 @{
     ViewData["Title"] = "Stats";
 }
-
-<h1>Stats</h1>
-
+<style>
+    div.b {
+        text-decoration-line: underline;
+        text-decoration-style: wavy;
+        color:yellow;
+        font-size:larger;
+    }
+</style>
+    <div class="b">A Little bit about our gym...</div>
+<br />
+<br />
 <!DOCTYPE HTML>
 <html>
 <head>
+    @*Types of classes = @Html.DisplayFor(Model => Model.types);*@
+    <h2>  We offerd classes of </h2>
+    <h1>@Html.DisplayFor(Model => Model.types) types</h1>
+
     @*Pie Chart*@
 
     <script type="text/javascript">
@@ -35,7 +47,6 @@
 		}
 		]
         });
-
 
     var dps = [];   //dataPoints.
 

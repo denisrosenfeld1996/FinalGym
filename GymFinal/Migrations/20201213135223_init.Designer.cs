@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymFinal.Migrations
 {
     [DbContext(typeof(GymFinalContext))]
-    [Migration("20201208103841_level5")]
-    partial class level5
+    [Migration("20201213135223_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,6 +180,9 @@ namespace GymFinal.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("UsersCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("types")
                         .HasColumnType("int");
 
                     b.HasKey("id");

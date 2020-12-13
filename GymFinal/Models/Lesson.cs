@@ -9,13 +9,20 @@ namespace GymFinal.Models
 {
     public class Lesson
     {
+        [RegularExpression("[0-9]{9}")]
         public int LessonID { get; set; }
+        [RegularExpression("[0-9]{9}")]
         public int TrainerID { get; set; }
+        [RegularExpression("[0-9]{9}")]
         public int StudioClassID { get; set; }
         //Join
         public int MemberID { get; set; }
         //Join
+        [RegularExpression("[0-9]{2}")]
         public int Capacity { get; set; }
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+        [Required]
+        [StringLength(10)]
         public string LessonDay { get; set; }
         [DataType(DataType.Time)]
         public DateTime LessonTime { get; set; }
