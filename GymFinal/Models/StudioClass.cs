@@ -26,7 +26,6 @@ namespace GymFinal.Models
         public string Type { get; set; }
         //GroupBy
         public int TypeID { get; set; }
-        //GroupBy
         [RegularExpression("[0-9]{2}")]
         public int DuringTime { get; set; }
         //Odeya&maya
