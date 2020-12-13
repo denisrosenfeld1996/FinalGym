@@ -16,3 +16,5 @@ namespace GymFinal.Models
         public int ClassesCount { get; set; }
     }
 }
+
+//denis
