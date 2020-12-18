@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,10 +21,7 @@ namespace GymFinal.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        //Graph
         private readonly GymFinalContext _context;
-        //Graph
-
         public HomeController(ILogger<HomeController> logger, GymFinalContext context)
         {
             _context = context;
@@ -32,17 +32,11 @@ namespace GymFinal.Controllers
         {
             return View();
         }
-
-
-
-        //Session
         public IActionResult About()
         {
             ViewBag.Message = HttpContext.Session.GetString("Test");
             return View();
         }
-        //Session
-
 
         public IActionResult Privacy()
         {
@@ -54,23 +48,18 @@ namespace GymFinal.Controllers
         {
             StatsViewModel dash = new StatsViewModel();
             var TypesCount = _context.StudioClass
-              .GroupBy(p => p.TypeID)
+              .GroupBy(p => p.Type)
               .Select(g => new
               {
-                  TypeID = g.Key,
+                  Type = g.Key,
                   Count = g.Count()
               }).ToList();
             dash.types = TypesCount.Count();
-            ///dash.TrainersCount = _context.Trainers.ToList().Count();
-            ////dash.UsersCount = _context.Members.Count();
             dash.Classes = _context.StudioClass.ToImmutableList();
-            //added
             dash.TrainersCount = _context.Trainers.ToList().Count();
             dash.ClassesCount = _context.StudioClass.Count();
             return View(dash);
         }
-        //Graph
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

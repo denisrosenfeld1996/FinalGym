@@ -1,4 +1,5 @@
-﻿@model GymFinal.Models.Trainers
+﻿
+@model GymFinal.Models.Trainers
 @using Microsoft.AspNetCore.Identity
 @using GymFinal.Areas.Identity.Data
 @inject SignInManager<GymFinalUser> SignInManager
@@ -7,10 +8,10 @@
     ViewData["Title"] = "Delete";
 }
 
-@if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
+@if (SignInManager.IsSignedIn(User)) //if we connected
 {
 
-    if (UserManager.GetUserAsync(User).Result.Role == "Admin")
+    if (UserManager.GetUserAsync(User).Result.Role == "Admin") // if admin
     {
         <h1>Delete</h1>
 

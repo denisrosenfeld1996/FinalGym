@@ -107,7 +107,9 @@ namespace GymFinal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("LessonDay")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("LessonTime")
                         .HasColumnType("datetime2");
@@ -213,9 +215,6 @@ namespace GymFinal.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("StatsViewModelid");
@@ -231,16 +230,21 @@ namespace GymFinal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<int>("Seniority")
                         .HasColumnType("int");
 
                     b.Property<string>("TrainerName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("TrainersID");
 

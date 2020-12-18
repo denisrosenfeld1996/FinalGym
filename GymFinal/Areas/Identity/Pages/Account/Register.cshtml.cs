@@ -15,10 +15,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations.Schema;
 using GymFinal.Models;
-//using SQLitePCL;
 using GymFinal.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
-//using Castle.Core;
 
 namespace GymFinal.Areas.Identity.Pages.Account
 {
@@ -53,36 +51,28 @@ namespace GymFinal.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            //added
             [Required]
             [Display(Name = "Full Name")]
             public string FullName { get; set; }
-            //added
-            //added
             [Required]
             [DatabaseGenerated(DatabaseGeneratedOption.None)]
             [MinLengthAttribute(9)]
             [MaxLengthAttribute(9)]
             [Display(Name = "id")]
             public string UserId { get; set; }
-            //added
-
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
-
-            //added
             [Display(Name = "Address")]
+            [Required]
             public string Address { get; set; }
-            //added
-
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
-
+            [Required]
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
@@ -135,7 +125,7 @@ namespace GymFinal.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                //Try
+                
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

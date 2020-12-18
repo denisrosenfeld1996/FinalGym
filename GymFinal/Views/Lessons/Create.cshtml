@@ -8,7 +8,7 @@
     ViewData["Title"] = "Create";
 }
 
-@if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
+@if (SignInManager.IsSignedIn(User)) //if we connected 
 {
 
     if (UserManager.GetUserAsync(User).Result.Role == "Admin")
@@ -28,13 +28,7 @@
                     <div class="form-group">
                         <label asp-for="StudioClassID" class="control-label"></label>
                         <select asp-for="StudioClassID" class="form-control" asp-items="ViewBag.StudioClassID"></select>
-                    </div>
-                    <!--Join-->
-                    <div class="form-group">
-                        <label asp-for="MemberID" class="control-label"></label>
-                        <select asp-for="MemberID" class="form-control" asp-items="ViewBag.StudioClassID"></select>
-                    </div>
-                    <!--Join-->
+                    </div>        
                     <div class="form-group">
                         <label asp-for="Capacity" class="control-label"></label>
                         <input asp-for="Capacity" class="form-control" />

@@ -11,8 +11,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XGym</title>
-    @*@Styles.Render("/Content/css")
-        @Scripts.Render("/bundles/modernizr")*@
     <link rel="stylesheet" href="/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="/css/bootstrap-grid.css" />
     <link rel="stylesheet" href="/css/bootstrap-reboot.css" />
@@ -22,10 +20,6 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/magnific-popup.css" />
     <link rel="stylesheet" href="/css/site.css" />
-    @*addedodeya*@
-    <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />-->
-
     <script src="~/js/bootstrap.bundle.js"></script>
     <script src="~/js/easyResponsiveTabs.js"></script>
     <script src="~/js/jquery-ui.js"></script>
@@ -40,7 +34,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
-    @*//denis*@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -50,7 +43,6 @@
 
 </head>
 
-@*denis*@
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -59,16 +51,13 @@
                 <a class="navbar-brand" href="#" style="color:yellow">X-GYM</a>
             </div>
             <ul class="nav navbar-nav">
-                @*<li class="active"><a href="#">Home</a></li>*@
-                @*<li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>*@
                 <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link", @style = "color:white" })</li>
-                <li class="nav-item">@Html.ActionLink("About US", "AboutUS", "StudioClasses", null, new { @class = "nav-link", @style = "color:white" });</li>
+                <li class="nav-item">@Html.ActionLink("About US", "AboutUS", "StudioClasses", null, new { @class = "nav-link", @style = "color:white" })</li>
                 <li class="nav-item">@Html.ActionLink("Classes", "Index", "StudioClasses", null, new { @class = "nav-link", @style = "color:white" })</li>
                 <li class="nav-item">@Html.ActionLink("Time Table", "Index", "Lessons", null, new { @class = "nav-link", @style = "color:white" })</li>
                 <li class="nav-item">@Html.ActionLink("Team", "Index", "Trainers", null, new { @class = "nav-link", @style = "color:white" })</li>
                 <li class="nav-item">@Html.ActionLink("BMI", "BMI", "StudioClasses", null, new { @class = "nav-link", @style = "color:white" })</li>
-                @*<li class="nav-item">@Html.ActionLink("Info", "Info", "StudioClasses", null, new { @class = "nav-link", @style = "color:white" })</li>*@
+                <li class="nav-item">@Html.ActionLink("Statistics", "Stats", "Home", null, new { @class = "nav-link", @style = "color:white" })</li>
 
             </ul>
         </div>
@@ -82,45 +71,13 @@
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top " style="background-color:rgba(128, 128, 128, 0.00) !important">
         <div class="container">
             <div id="txt"></div>
-
-            @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="inavbar-toggler-icon"></span>
-                </button>
-
-                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:salmon" })*@
-
-
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                <ul class="nav navbar-nav mr-auto">
-                    @*<li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link", @style = "color:grey" })</li>
-                        <li class="nav-item">@Html.ActionLink("Lessons", "Index", "Lessons", null, new { @class = "nav-link", @style = "color:grey" })</li>
-                        <li class="nav-item">@Html.ActionLink("StudioClasses", "Index", "StudioClasses", null, new { @class = "nav-link", @style = "color:grey" })</li>
-                        <li class="nav-item">@Html.ActionLink("Trainers", "Index", "Trainers", null, new { @class = "nav-link", @style = "color:grey" })</li>*@
-
-                    @*@if (Session["name"] != null)
-                                    {
-                        <li class="nav-item">@Html.ActionLink("Flights Board", "Index", "FlightBoards", null, new { @class = "nav-link", @style = "color:grey" })</li>}
-
-                                    @if (Session["name"] != null && (Session["name"].ToString().Contains(" Admin")))
-                                    {
-                        <li class="nav-item">@Html.ActionLink("Users List", "Index", "Users", null, new { @class = "nav-link", @style = "color:grey" })</li>
-                                        <li class="nav-item">@Html.ActionLink("Messages", "Index", "Contacts", null, new { @class = "nav-link", @style = "color:grey" })</li>}*@
-                    @*<li class="nav-item">@Html.ActionLink("Users List", "Index", "Users", null, new { @class = "nav-link", @style = "color:grey" })</li>
-                        <li class="nav-item">@Html.ActionLink("Messages", "Index", "Contacts", null, new { @class = "nav-link", @style = "color:grey" })</li>*@
-                </ul>
-                @*@Html.Partial("RightSideNav")]
-                    @{
-                        Html.RenderPartial("RightSideNav");
-                    }*@
-
-                @*denis /////////////////////////////////////////////////////// *@
                 <div class="col-md-4 col-sm-6 col-s-12">
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="~/images/blog_img2.jpg" alt="Card image cap">
+                        <img class="card-img-top" style="border-radius: 10px;" src="~/images/mainpic.jpg" alt="Card image cap" >
 
                     </div>
                 </div>
-                @* denis *@
             </div>
         </div>
     </nav>
@@ -129,27 +86,16 @@
         <hr />
 
     </div>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - XGym </p>
-    </footer>
 
-    @* denis *@
+
     <style>
         body {
             background-color: black;
         }
     </style>
 
-
-
-
-    @*@Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
-
-
-
 </html>
 
 @* clock *@
@@ -159,7 +105,6 @@
         var h = today.getHours();
         var m = today.getMinutes();
         var s = today.getSeconds();
-        // add a zero in front of numbers<10
         m = checkTime(m);
         s = checkTime(s);
         document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
@@ -175,3 +120,6 @@
 </script>
 
 
+<footer>
+    <p>&copy; @DateTime.Now.Year - XGym </p>
+</footer>

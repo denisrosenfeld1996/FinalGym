@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
+﻿
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,38 +9,34 @@ using System.Threading.Tasks;
 
 namespace GymFinal.Models
 {
-    //public enum Intensive
-    //{
-    //    Easy,Medium,Hard
-    //}
+
     public class StudioClass
     {
-        [RegularExpression("[0-9]{9}")]
+        [Display(Name = "Studio Class Id")]
+        [Required]
         public int ID { get; set; }
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+
+        [Display(Name = "Class Name")]
+        [RegularExpression(@"[a-zA-Z'\s]*$")]
         [Required]
         [StringLength(30)]
         public string ClassName { get; set; }
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+
+        [RegularExpression(@"[a-zA-Z'\s]*$")]
         [Required]
         [StringLength(30)]
         public string Type { get; set; }
-        //GroupBy
-        public int TypeID { get; set; }
-        [RegularExpression("[0-9]{2}")]
+
+        [Display(Name = "During Time")]
+        [Required]
         public int DuringTime { get; set; }
-        //Odeya&maya
-        [RegularExpression("[0-9]{4}")]
+
+        [Display(Name = "Burn Calories")]
+        [Required]
         public int BurnCalories { get; set; }
-        //Odeya&maya
-        //Join-14.11
+
         public Trainers trainers { get; set; }
-        ////Join
         public ICollection<Lesson> Lessons { get; set; }
-
-
-        //denis
-        
 
     }
 }

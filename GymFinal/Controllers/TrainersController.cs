@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GymFinal.Data;
 using GymFinal.Models;
+using System.Dynamic;
+using Facebook;
 
 namespace GymFinal.Controllers
 {
@@ -23,6 +25,7 @@ namespace GymFinal.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Trainers.ToListAsync());
+
         }
 
         // GET: Trainers/Details/5
@@ -48,7 +51,23 @@ namespace GymFinal.Controllers
         {
             return View();
         }
+        //FacebookAPI
+        public void facebook(string TrainerName)
+        {
+            dynamic messagePost = new ExpandoObject();
+            messagePost.message = "Manager Update:" +
+                "Hey Everyone! We just got a new trainer to our gym! It's " + TrainerName;
+            string acccessToken = "EAALojoyfCFsBAJ3Pe4ZCXjnAopdJwWeG0UIIjy7cZBujDRdB4rzW7VgA1jZBCvUxamcXriLg7C9S7MFCSTB8z60NH4QfTXxHSVG9Mu8XW4G9yMEvTM6BkloZCplh2SaRLL71FVfZAQXR5F71LkR7an2CbSg3DLaWgGOdtl1FYrRabytl7uMPwk0NlQGAnthFIJ86eVzQla97FkRZAWQFnqX9Wr3koxjLuyvB329mUq9yUqLvheeefwU4YvtvPcMWwZD";
+            FacebookClient appp = new FacebookClient(acccessToken);
+            try
+            {
+                var postId = appp.Post("118041190105913" + "/feed", messagePost);
+            }
+            catch (FacebookOAuthException ex)
+            {
+            }
 
+        }
         // POST: Trainers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -59,6 +78,9 @@ namespace GymFinal.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(trainers);
+                //FacebookAPI
+                facebook(trainers.TrainerName);
+                //FacebookAPI
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

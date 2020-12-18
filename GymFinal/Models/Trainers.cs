@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,20 +15,30 @@ namespace GymFinal.Models
 {
     public class Trainers
     {
+        [Display(Name = "Trainer Id")]
         [RegularExpression("[0-9]{9}")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required]
         public int TrainersID { get; set; }
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+
+        [Display(Name = "Trainer Name")]
+        [RegularExpression(@"[a-zA-Z'\s]*$")]
         [Required]
         [StringLength(30)]
         public string TrainerName { get; set; }
-        [RegularExpression("[0-9]{2}")]
+
+        [Required]
         public int Seniority { get; set; }
-        [RegularExpression("[0-9]{10}")]
-        public int PhoneNumber { get; set; }
+
+        [Display(Name = "Phone Number")]
+        [StringLength(10, MinimumLength = 10)]
+        [Required]
+        public string PhoneNumber { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
         public ICollection<Lesson> Lessons { get; set; }
 
 

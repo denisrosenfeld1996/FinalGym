@@ -1,4 +1,6 @@
-﻿//Graph
+﻿
+//denis
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,4 +19,4 @@ namespace GymFinal.Models
     }
 }
 
-//denis
+

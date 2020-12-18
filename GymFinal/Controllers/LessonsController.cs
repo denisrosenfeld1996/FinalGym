@@ -22,10 +22,7 @@ namespace GymFinal.Controllers
             _context = context;
         }
 
-        //GroupBy-Noy
-
-        //GroupBy-Noy
-        // GET: Lessons
+        //GroupBy
         public async Task<IActionResult> Index()
         {
             var gymContext = _context.Lesson.Include(l => l.StudioClass).Include(l => l.Trainer).Include(l => l.Members);
@@ -33,36 +30,30 @@ namespace GymFinal.Controllers
             var viewModel =
                           from sc in _context.StudioClass
                           join tr in _context.Trainers on sc.ID equals tr.TrainersID
-                          //where sc. == this.HttpContext.User.Identity.Name
-                          //orderby p.Name, p.ProjectNo
                           select new Lesson { StudioClass = sc, Trainer = tr };
             //Ouery-Join-Lesson+SC+Trainers
-            ////Query Join-Odeya
             var viewModel1 =
                           from sc in _context.StudioClass
-                          join me in _context.Members on sc.ID equals me.MembersID
-                          //where sc. == this.HttpContext.User.Identity.Name
-                          //orderby p.Name, p.ProjectNo
-                          select new Lesson { StudioClass = sc, Members = me };
-            ////Ouery-Join
-            return View(await gymContext.ToListAsync());
+                          join sc1 in _context.StudioClass on sc.ID equals sc1.ID
+
+                          select new Lesson { StudioClass = sc };
+            return View(await _context.Lesson.ToListAsync());
+
         }
 
-        //Odeya&maya-Search
+        //Search button
         public async Task<IActionResult> Search(string day)
         {
             var results = from l in _context.Lesson
                           where l.LessonDay.Contains(day)
                           select l;
-            //var results2 = _context.Lesson.Where(le =>le.LessonDay.Contains(day)) ;
             return View("Index", await results.ToListAsync());
         }
-        //Odeya&maya-Search
 
         // GET: Lessons/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-         
+
             if (id == null)
             {
                 return NotFound();
@@ -71,7 +62,6 @@ namespace GymFinal.Controllers
             var lesson = await _context.Lesson
                 .Include(l => l.StudioClass)
                 .Include(l => l.Trainer)
-                .Include(l => l.Members) //Join
                 .FirstOrDefaultAsync(m => m.LessonID == id);
 
             if (lesson == null)
@@ -87,31 +77,29 @@ namespace GymFinal.Controllers
         {
             ViewData["StudioClassID"] = new SelectList(_context.StudioClass, "ID", "ID");
             ViewData["TrainerID"] = new SelectList(_context.Trainers, "TrainersID", "TrainersID");
-            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); //Join
+            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); 
             return View();
         }
 
-        //Odeya-FacebookAPI
-        public void facebook(string LessonDay)  //after we add aflight we posted in facebook
+        //FacebookAPI
+        public void facebook(string LessonDay) 
         {
             dynamic messagePost = new ExpandoObject();
             messagePost.message = "Manager Update:" +
                 "Hey Everyone!We made a change in the date of a lesson! It's " + LessonDay;
 
 
-            string acccessToken = "EAALojoyfCFsBAKNwbazMQrVby4IEZBynTHNlPgP1bUSSXltQw6ME72SLLBdfwL8FET5Vsrxf86OFyJ8THmtMKPCOYayohb0QCXTPQo00RPBQVlZAHVj6ZAzo2C2LQTY5J2ZCAGHTSjZCRQJ1kYOvcbdfRSQGxtu9U92cOfv2Wyp2pDyXeaQtZAJ7pdfDk7kwNw2UhDDc5cZAOJJuHqo5uUk";
+            string acccessToken = "EAALojoyfCFsBAJ3Pe4ZCXjnAopdJwWeG0UIIjy7cZBujDRdB4rzW7VgA1jZBCvUxamcXriLg7C9S7MFCSTB8z60NH4QfTXxHSVG9Mu8XW4G9yMEvTM6BkloZCplh2SaRLL71FVfZAQXR5F71LkR7an2CbSg3DLaWgGOdtl1FYrRabytl7uMPwk0NlQGAnthFIJ86eVzQla97FkRZAWQFnqX9Wr3koxjLuyvB329mUq9yUqLvheeefwU4YvtvPcMWwZD";
             FacebookClient appp = new FacebookClient(acccessToken);
             try
             {
                 var postId = appp.Post("118041190105913" + "/feed", messagePost);
             }
             catch (FacebookOAuthException ex)
-            { //handle oauth exception } catch (FacebookApiException ex) { //handle facebook exception
+            {
             }
 
         }
-        //Odeya-FacebookAPI
-
 
         // POST: Lessons/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -123,15 +111,15 @@ namespace GymFinal.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(lesson);
-                //Odeya-FacebookAPI
+                //FacebookAPI
                 facebook(lesson.LessonDay);
-                //Odeya-FacebookAPI
+                //FacebookAPI
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["StudioClassID"] = new SelectList(_context.StudioClass, "ID", "ID", lesson.StudioClassID);
             ViewData["TrainerID"] = new SelectList(_context.Trainers, "TrainersID", "TrainersID", lesson.TrainerID);
-            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); //Join
+            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); 
             return View(lesson);
         }
 
@@ -150,7 +138,7 @@ namespace GymFinal.Controllers
             }
             ViewData["StudioClassID"] = new SelectList(_context.StudioClass, "ID", "ID", lesson.StudioClassID);
             ViewData["TrainerID"] = new SelectList(_context.Trainers, "TrainersID", "TrainersID", lesson.TrainerID);
-            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); //Join
+            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); 
             return View(lesson);
         }
 
@@ -188,7 +176,7 @@ namespace GymFinal.Controllers
             }
             ViewData["StudioClassID"] = new SelectList(_context.StudioClass, "ID", "ID", lesson.StudioClassID);
             ViewData["TrainerID"] = new SelectList(_context.Trainers, "TrainersID", "TrainersID", lesson.TrainerID);
-            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); //Join
+            ViewData["MemberID"] = new SelectList(_context.Members, "MembersID", "MembersID"); 
             return View(lesson);
         }
 
@@ -203,7 +191,6 @@ namespace GymFinal.Controllers
             var lesson = await _context.Lesson
                 .Include(l => l.StudioClass)
                 .Include(l => l.Trainer)
-                .Include(l => l.Members) ///Join
                 .FirstOrDefaultAsync(m => m.LessonID == id);
             if (lesson == null)
             {

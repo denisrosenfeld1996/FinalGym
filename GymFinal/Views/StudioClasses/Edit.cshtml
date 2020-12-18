@@ -8,7 +8,7 @@
     ViewData["Title"] = "Edit";
 }
 
-@if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
+@if (SignInManager.IsSignedIn(User)) //if we connected
 {
 
     if (UserManager.GetUserAsync(User).Result.Role == "Admin")
@@ -37,20 +37,11 @@
                         <input asp-for="DuringTime" class="form-control" />
                         <span asp-validation-for="DuringTime" class="text-danger"></span>
                     </div>
-                    <!--Odeya&maya -->
                     <div class="form-group">
                         <label asp-for="BurnCalories" class="control-label"></label>
                         <input asp-for="BurnCalories" class="form-control" />
                         <span asp-validation-for="BurnCalories" class="text-danger"></span>
                     </div>
-                    <!--Odeya&maya -->
-                    <!--GroupBy-->
-                    <div class="form-group">
-                        <label asp-for="TypeID" class="control-label"></label>
-                        <input asp-for="TypeID" class="form-control" />
-                        <span asp-validation-for="TypeID" class="text-danger"></span>
-                    </div>
-                    <!--GroupBy -->
                     <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-primary" />
                     </div>

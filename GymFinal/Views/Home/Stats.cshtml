@@ -1,28 +1,26 @@
 ﻿@model GymFinal.Models.StatsViewModel
 @{
-    ViewData["Title"] = "Stats";
+    ViewData["Title"] = "Statistics";
 }
 <style>
-    div.b {
-        text-decoration-line: underline;
-        text-decoration-style: wavy;
-        color:yellow;
-        font-size:larger;
+    p.ex1 {
+        border: 1px solid yellow;
+        padding-bottom: 25px;
+        font-size: xx-large;
+        font: 700;
+        font-family: cursive;
     }
 </style>
-    <div class="b">A Little bit about our gym...</div>
-<br />
-<br />
-<!DOCTYPE HTML>
-<html>
-<head>
-    @*Types of classes = @Html.DisplayFor(Model => Model.types);*@
-    <h2>  We offerd classes of </h2>
-    <h1>@Html.DisplayFor(Model => Model.types) types</h1>
-
-    @*Pie Chart*@
-
-    <script type="text/javascript">
+    <p class="ex1">A Little bit about our gym...</p>
+        <br />
+        <br />
+        <!DOCTYPE HTML>
+        <html>
+        <head>
+            <h2>  We offerd classes of </h2>
+            <h1>@Html.DisplayFor(Model => Model.types) types</h1>
+            @*Pie Chart*@
+            <script type="text/javascript">
     window.onload = function () {
 	var chart = new CanvasJS.Chart("chartContainer",
 	{
@@ -39,8 +37,6 @@
 			showInLegend: true,
 			legendText: "{indexLabel}",
 			dataPoints: [
-				@*{ y: @Html.DisplayFor(Model=>Model.TrainersCount), indexLabel: "Trainers" },
-				{ y: @Html.DisplayFor(Model=>Model.UsersCount), indexLabel: "Users"}*@
                 { y: @Html.DisplayFor(Model => Model.TrainersCount), indexLabel: "Trainers" },
             { y: @Html.DisplayFor(Model => Model.ClassesCount), indexLabel: "Classes"}
 			]
@@ -63,7 +59,6 @@
                 data: [{
                     type: "column",
                     showInLegend: true,
-                    //legendText: "{indexLabel}",
                     dataPoints: dps
                 }]
             });
@@ -77,15 +72,7 @@
 
                     @:dps.push({ y:@Html.DisplayFor(modelitem => item.BurnCalories), label: "@Html.DisplayFor(modelitem => item.ClassName)" })
                 }
-
-                //for (var i = 0; i <= 10; i++)
-                //{
-                // dps.push({ y: 10});
-                //}
-
-
-                @*for (var i = 0; i <= @Model.Registerations.Count(); i++)
-                    dps.push({ y: dataArray[i] });*@
+   
             };
 
             parseDataPoints();
@@ -93,19 +80,18 @@
     chart.render();
     chart2.render();
 }
-    </script>
-    @*end of column chart*@
+            </script>
+            @*end of column chart*@
 
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</head>
-<body>
-    @*Pie Chart*@
+            <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        </head>
+        <body>
+            @*Pie Chart*@
 
-    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
-    @*end of pie chart*@
-    <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+            @*end of pie chart*@
+            <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
 
-</body>
-</html>
-<!--Graph-->
+        </body>
+    </html>

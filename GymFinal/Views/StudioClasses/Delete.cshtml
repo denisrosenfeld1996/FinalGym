@@ -9,7 +9,7 @@
     ViewData["Title"] = "Delete";
 }
 
-@if (SignInManager.IsSignedIn(User)) //אם אנחנו מחוברים
+@if (SignInManager.IsSignedIn(User)) //if we connected
 {
 
     if (UserManager.GetUserAsync(User).Result.Role == "Admin")
@@ -39,22 +39,12 @@
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.DuringTime)
                 </dd>
-                <!--Odeya&maya -->
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.BurnCalories)
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.BurnCalories)
                 </dd>
-                <!--Odeya&maya -->
-                <!--Group -->
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.TypeID)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.TypeID)
-                </dd>
-                <!--Group -->
             </dl>
 
             <form asp-action="Delete">

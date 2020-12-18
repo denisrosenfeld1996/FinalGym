@@ -28,12 +28,7 @@ namespace GymFinal
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            //services.AddDbContext<GymFinalContext>(options =>
-            //        options.UseSqlServer(
-            //            Configuration.GetConnectionString("GymFinalContextConnection")));
-
-            //services.AddDefaultIdentity<GymFinalContext>(options => options.SignIn.RequireConfirmedAccount = false)
-            //    .AddEntityFrameworkStores<GymFinalContext>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,43 +30,10 @@ namespace GymFinal.Controllers
             _context = context;
         }
 
-        //GroupBy-14.11-Osher
-        //public ActionResult groupBy()
-        //{
-        //    var classesByType =
-        //       from u in _context.Lesson
-        //       group u by u.StudioClass into g
-
-        //       select new { StudioClass = g.Key, count = g.Count(), g.FirstOrDefault().StudioClassID };
-        //    var group = new List<Lesson>();
-        //    foreach (var t in classesByType)
-        //    {
-        //        group.Add(new Lesson()
-        //        {
-        //            StudioClass = t.StudioClass,
-        //            LessonNumber = t.count
-        //        });
-        //    }
-        //    ViewBag.typeAirboic = group[0].StudioClass.Type;
-        //    ViewBag.sizeAirobic = group[0].LessonNumber;
-        //    ViewBag.typeStreaching = group[1].StudioClass.Type;
-        //    ViewBag.sizeStreaching = group[1].LessonNumber;
-        //    //ViewBag.type..... = group[2].flightBoard.boardName;
-        //    //ViewBag.size,... = group[2].flightNumber;
-
-        //    return View(group);
-
-        //}
-        //GroupBy-14.11
-
 
         //GET: StudioClasses
         public async Task<IActionResult> Index()
         {
-            //Odeya&maya-GroupBy
-            //var result = from sc in _context.StudioClass
-            //             group sc by sc.TypeID;        
-            //Odeya&maya-GroupBy
             return View(await _context.StudioClass.ToListAsync());
         }
         public async Task<IActionResult> AboutUs()
@@ -75,45 +44,23 @@ namespace GymFinal.Controllers
         {
             return View();
         }
-        //denis added
+
         public async Task<IActionResult> Info()
         {
             return View();
         }
-        //Odeya&maya-Search
+        //Search button
         public async Task<IActionResult> Search(string name, int calories, string type)
         {
             var results = from sc in _context.StudioClass
                           where sc.ClassName.Contains(name) || sc.BurnCalories <= calories || sc.Type.Equals(type)
                           select sc;
-            //var results2 = _context.StudioClass.Where(s => s.ClassName.Contains(name));
             return View("Index", await results.ToListAsync());
         }
-        //Odeya&maya-Search
-
-        // MAYA ADDED
-
-
-        //public void /*/Task<IActionResult>/*/ Sample_GroupBy_Linq()
-        //{
-        //    var ClassNameList1 = new List<StudioClass>{
-
-        //              new StudioClass { ID=123, ClassName="Zumba",Type="Airobic",DuringTime=1 },
-        //              new StudioClass { ID=1234, ClassName="Trx",Type="stretching",DuringTime=2 },
-        //              new StudioClass { ID=1235, ClassName="Pilaties",Type="stretching",DuringTime=1 }
-        //     };
-
-        //    var result = ClassNameList1.GroupBy(x => new { ClassName = x.ClassName, Type = x.Type })
-        //     .Select(b => new StudioClass() { ClassName = b.Key.ClassName, Type = b.Key.Type, ClassNameList = b.Select(c => c.ClassNameList).ToList() })
-        //     .ToList();
-        //}
-
-        //return View(List_sc);
-
-        // MAYA ADDED
 
 
         // GET: StudioClasses/Details/5
+        //Learning algorithm
         public async Task<IActionResult> Details(int? id)
         {
             var temp = _context.StudioClass.Find(id);
@@ -121,7 +68,6 @@ namespace GymFinal.Controllers
             {
                 Best.mapOfClass = new Dictionary<string, int>();
                 Best.mapOfClass.Add(temp.Type, 1);
-
 
             }
             else
@@ -138,7 +84,6 @@ namespace GymFinal.Controllers
             }
 
             Best.bestclass = Best.mapOfClass.FirstOrDefault(x => x.Value == Best.mapOfClass.Values.Max()).Key;
-            
             if (id == null)
             {
                 return NotFound();
@@ -152,19 +97,7 @@ namespace GymFinal.Controllers
             {
                 return NotFound();
             }
-            //Join Query
-            //ViewBag.reviews = await _context.Lesson.Where(le => le.LessonID == id).Include(le=> le.LessonDay).ToListAsync();
-            //ViewBag.reviews.Reverse();
-            //Join-Afik:
-            //ViewBag.reviews = await _context.Lesson.Where(le => le.LessonID == id).Join(_context.Trainers, tr => tr.TrainerID, tr => tr.TrainersID, (sc, tr) => tr).ToListAsync();
-            ////Query Join
-            //var viewModel =
-            //              from sc in _context.StudioClass
-            //              join tr in _context.Trainers on sc.ID equals tr.TrainersID
-            //              //where sc. == this.HttpContext.User.Identity.Name
-            //              //orderby p.Name, p.ProjectNo
-            //              select new Lesson { StudioClass = sc, Trainer = tr };
-            //////Ouery-Join
+
             return View(studioClass);
         }
 
@@ -173,40 +106,37 @@ namespace GymFinal.Controllers
         {
             return View();
         }
-        //Odeya-FacebookAPI
-        public void facebook(string ClassName)  //after we add aflight we posted in facebook
+        //FacebookAPI
+        public void facebook(string ClassName)
         {
             dynamic messagePost = new ExpandoObject();
             messagePost.message = "Manager Update:" +
                 "Hey Everyone! We just got a new lesson to our gym! It's " + ClassName;
-
-
-            string acccessToken = "EAALojoyfCFsBAKNwbazMQrVby4IEZBynTHNlPgP1bUSSXltQw6ME72SLLBdfwL8FET5Vsrxf86OFyJ8THmtMKPCOYayohb0QCXTPQo00RPBQVlZAHVj6ZAzo2C2LQTY5J2ZCAGHTSjZCRQJ1kYOvcbdfRSQGxtu9U92cOfv2Wyp2pDyXeaQtZAJ7pdfDk7kwNw2UhDDc5cZAOJJuHqo5uUk";
+            string acccessToken = "EAALojoyfCFsBAJ3Pe4ZCXjnAopdJwWeG0UIIjy7cZBujDRdB4rzW7VgA1jZBCvUxamcXriLg7C9S7MFCSTB8z60NH4QfTXxHSVG9Mu8XW4G9yMEvTM6BkloZCplh2SaRLL71FVfZAQXR5F71LkR7an2CbSg3DLaWgGOdtl1FYrRabytl7uMPwk0NlQGAnthFIJ86eVzQla97FkRZAWQFnqX9Wr3koxjLuyvB329mUq9yUqLvheeefwU4YvtvPcMWwZD";
             FacebookClient appp = new FacebookClient(acccessToken);
             try
             {
                 var postId = appp.Post("118041190105913" + "/feed", messagePost);
             }
             catch (FacebookOAuthException ex)
-            { //handle oauth exception } catch (FacebookApiException ex) { //handle facebook exception
+            {
             }
 
         }
-        //Odeya-FacebookAPI
 
         // POST: StudioClasses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ClassName,Type,DuringTime,BurnCalories,TypeID")] StudioClass studioClass)
+        public async Task<IActionResult> Create([Bind("ID,ClassName,Type,DuringTime,BurnCalories")] StudioClass studioClass)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(studioClass);
-                //Odeya-FacebookAPI
+                //FacebookAPI
                 facebook(studioClass.ClassName);
-                //Odeya-FacebookAPI
+                //FacebookAPI
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -234,7 +164,7 @@ namespace GymFinal.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ClassName,Type,DuringTime,BurnCalories,TypeID")] StudioClass studioClass)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,ClassName,Type,DuringTime,BurnCalories")] StudioClass studioClass)
         {
             if (id != studioClass.ID)
             {
@@ -292,29 +222,6 @@ namespace GymFinal.Controllers
                     Count = g.Count()
                 }).ToList();
             int types = TypesCount.Count();
-
-
-            //var classById =
-            //    from u in _context.StudioClass
-            //    group u by u.Type into g
-
-            //    select new { Type = g.Key, count = g.Count(), g.FirstOrDefault().TypeID };
-            //var group = new List<StudioClass>();
-            //foreach (var t in classById)
-            //{
-            //    group.Add(new StudioClass()
-            //    {
-            //        Type = t.Type,
-            //        DuringTime = t.count
-            //    }); 
-            //}
-
-            //ViewBag.airobic = group[0].Type;
-            //ViewBag.sizeAirobic = group[0].DuringTime;
-            //ViewBag.streching = group[1].Type;
-            //ViewBag.sizestreching = group[1].DuringTime;
-            //ViewBag.power = group[2].Type;
-            //ViewBag.sizePower = group[2].DuringTime;
             return View();
         }
 
