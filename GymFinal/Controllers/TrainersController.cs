@@ -27,7 +27,16 @@ namespace GymFinal.Controllers
             return View(await _context.Trainers.ToListAsync());
 
         }
-
+        //Search
+        public async Task<IActionResult> Search(string name, int id)
+        {
+            var results = from tr in _context.Trainers
+                          where tr.TrainerName.Contains(name) || tr.TrainersID == id
+                          select tr;
+            //var results2 = _context.StudioClass.Where(s => s.ClassName.Contains(name));
+            return View("Index", await results.ToListAsync());
+        }
+        
         // GET: Trainers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -57,7 +66,7 @@ namespace GymFinal.Controllers
             dynamic messagePost = new ExpandoObject();
             messagePost.message = "Manager Update:" +
                 "Hey Everyone! We just got a new trainer to our gym! It's " + TrainerName;
-            string acccessToken = "EAALojoyfCFsBAJ3Pe4ZCXjnAopdJwWeG0UIIjy7cZBujDRdB4rzW7VgA1jZBCvUxamcXriLg7C9S7MFCSTB8z60NH4QfTXxHSVG9Mu8XW4G9yMEvTM6BkloZCplh2SaRLL71FVfZAQXR5F71LkR7an2CbSg3DLaWgGOdtl1FYrRabytl7uMPwk0NlQGAnthFIJ86eVzQla97FkRZAWQFnqX9Wr3koxjLuyvB329mUq9yUqLvheeefwU4YvtvPcMWwZD";
+            string acccessToken = "EAALojoyfCFsBAIhDN28AWr7esGZBTSVLuogPfGx1QKSBEMGZAUicy3FGfonVGTg7pZABirZBCqjZCbt8JSAZC6L6e78CyAxlR92gDKbMnWpEBZCYrB8p8IF0k5cTCGZA1zl1M7XoksOhfTmL6j47z2ACfZBwkfJXpFp0v5pfldh2UeFM4wL4rhv4j9vsL94OeHyqSbzipSdak4CCohQNIHUBx";
             FacebookClient appp = new FacebookClient(acccessToken);
             try
             {
